@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>事件处理器</title>
+		<script src="./vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="myApp">
+			<p>事件处理器</p>
+			<input id="txtName" @keyup="txtKeyup($event)" />
+			<button id="btnOk" @click="btnClick($event)">ok</button>
+		</div>
+		<script>
+			var myApp = new Vue({
+				el: '#myApp',
+				data: {},
+				methods: {
+					txtKeyup: function(event){
+						this.debugLog(event);
+					},
+					btnClick: function(event){
+						this.debugLog(event);
+					},
+					debugLog: function(event){
+						console.log('tagName:' + event.srcElement.tagName);
+						console.log('id:' + event.srcElement.id);
+						console.log('innerHTML:' + event.srcElement.innerHTML);
+						// 监听键盘按下的键
+						console.log('event.key:' + event.key?event.key:"");
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

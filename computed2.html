@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>computed set get</title>
+		<script src="./vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="myApp">
+			<p>
+				原价:{{price}} <br />
+				含税价:{{priceTax}} <br />
+				人民币价格:{{priceRMB}} 
+			</p>
+			<button v-on:click="btnClick(1000)">含税价改为1000</button>
+		</div>
+		<script>
+			var myApp = new Vue({
+				el: '#myApp',
+				data: {
+					price: 1200
+				},
+				computed: {
+					priceTax: {
+						// 页面加载时会调用get方法
+						get:function(){
+							console.log('get')
+							return this.price * 1.08
+						},
+						set:function(value){
+							console.log('set', value)
+							this.price = Math.round(value / 1.08)
+						}
+					},
+					priceRMB: function(){
+						console.log('priceRMB....')
+						return Math.round(this.priceTax / 16.75)
+					}
+				},
+				methods: {
+					btnClick: function(newPrice){
+						this.priceTax = newPrice
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

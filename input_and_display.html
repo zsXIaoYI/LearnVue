@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>输入框输入内容，立即展示在页面</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8 "></script>
+	</head>
+	<body>
+		<div id="myApp">
+			<p>你最喜欢的游戏是: {{myGame}}</p>
+			<!-- 回显myGame,在输入框中输入时并能改变myGame -->
+			<input v-model="myGame" />
+		</div>
+		<script>
+			var myApp = new Vue({
+				el: '#myApp',
+				data: {
+					myGame: 'DNF'
+				}
+			});
+		</script>
+	</body>
+</html>

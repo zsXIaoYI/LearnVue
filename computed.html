@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>computed学习</title>
+		<script src="./vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="myApp">
+			原价:{{price}}<br />
+			含税价:{{priceTax}}<br />
+			人民币价格:{{priceRMB}}<br />
+		</div>
+		<script>
+			var myApp = new Vue({
+				el: '#myApp',
+				data: {
+					price: 100
+				},
+				computed: {
+					priceTax: function(){
+						return this.price * 1.08
+					},
+					priceRMB: function(){
+						return Math.round(this.priceTax / 16.75)
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

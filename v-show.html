@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>v-show学习</title>
+		<script src="./vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="myApp">
+			<!-- 
+			当result为false时, 给h1标签添加style="display: none;"的样式
+			 -->
+			<h1 v-show="result">新游戏</h1>
+			<button @click="btnClick()">显示/取消</button>
+		</div>
+		<script>
+			var myApp = new Vue({
+				el: '#myApp',
+				data: {
+					result: true
+				},
+				methods: {
+					btnClick: function(){
+						this.result = !this.result;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

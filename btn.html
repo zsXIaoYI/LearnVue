@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>btn方法</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8 "></script>
+	</head>
+	<body>
+		<div id="myApp">
+			<p>你最喜欢的游戏是: {{game}}</p>
+			<button v-on:click="btnClick('DNF')">DNF</button>
+			<button @click="btnClick('吃蘑菇')">吃蘑菇</button>
+		</div>
+		<script>
+			var myApp = new Vue({
+				el: '#myApp',
+				data: {
+					game: 'LOL'
+				},
+				methods: {
+					btnClick: function(pname){
+						this.game = pname
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

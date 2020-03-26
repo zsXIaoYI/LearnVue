@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>for循环</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8 "></script>
+	</head>
+	<body>
+		<div id="myApp">
+			<h3>游戏列表</h3>
+			<!-- Virtual DOM
+			如果seen为false的话，页面加载该标签都不会加载到DOM树上
+			 -->
+			<div v-if="seen">2017年最新发布</div>
+			<ol>
+				<li v-for="game in games">{{game.title}} / {{game.price}}</li>
+			</ol>
+		</div>
+		<script>
+			var myApp = new Vue({
+				el: '#myApp',
+				data: {
+					seen: false,
+					games: [
+						{
+							title: 'LOL',
+							price: 200
+						},
+						{
+							title: '刀塔2',
+							price: 300
+						}
+					]
+				}
+			});
+		</script>
+	</body>
+</html>

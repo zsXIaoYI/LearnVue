@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>组件传递数据</title>
+		<script src="./vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="myApp">
+			<test-result :score="s1"></test-result>
+			<test-result :score="s2"></test-result>
+			<test-result :score="s3"></test-result>
+		</div>
+		<script>
+			// 组件命名需驼峰名命名，或小写用短横线连接
+			Vue.component('test-result', {
+				props: ['score'],
+				template: '<div><strong>{{score}}分，{{testResult}}</strong></div>',
+				
+				computed: {
+					testResult: function(){
+						var strResult = "";
+						if(this.score < 60) strResult = "不及格";
+						else if(this.score < 90) strResult = "中等生";
+						else if(this.score < 100) strResult = "优秀生";
+						return strResult
+					}
+				}
+			});
+			var myApp = new Vue({
+				el: '#myApp',
+				data: {
+					s1: 98,
+					s2: 45,
+					s3: 56
+				}
+			});
+		</script>
+	</body>
+</html>

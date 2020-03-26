@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>key/value迭代</title>
+		<script src="./vue.js"></script>
+	</head>
+	<body>
+		<p>js对象迭代</p>
+		<div id="myApp">
+			<div v-for="(value, key) in myInfo">
+				{{key}}: {{value}}
+			</div>
+		</div>
+		<script>
+			var myApp = new Vue({
+				el: '#myApp',
+				data: {
+					myInfo: {
+						name: "小松",
+						age: 28
+					}
+				}
+			});
+		</script>
+	</body>
+	
+	
+</html>
