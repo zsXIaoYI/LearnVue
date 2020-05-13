@@ -8,7 +8,9 @@
 	<body>
 		<div id="myApp">
 			<p>你最喜欢的游戏是: {{myGame}}</p>
-			<!-- 回显myGame,在输入框中输入时并能改变myGame -->
+			<!-- 回显myGame,在输入框中输入时并能改变myGame
+			 v-model实现双向数据绑定
+			 -->
 			<input v-model="myGame" />
 		</div>
 		<script>
