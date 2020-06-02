@@ -10,13 +10,30 @@
 			<p>你最喜欢的游戏是: {{game}}</p>
 			<button v-on:click="btnClick('DNF')">DNF</button>
 			<button @click="btnClick('吃蘑菇')">吃蘑菇</button>
-			<button @click="handle($event)">点击</button>
+            <!-- ($event)可以省略 -->
+			<button @click="handle($event)">点击</button><br>
+			<div v-on:click="handle1">
+            <!--下面click后加stop,会阻止事件的冒泡行为,方法handle1不会被调用-->
+				<button @click.stop="handle0">点击0</button>
+			</div>
+			<!--下面click后加prevent,会阻止事件的默认行为,不会跳转到百度首页-->
+			<a href="http://www.baidu.com" @click.prevent="handle2">百度</a>
+			<!--表单输入后,可以按delete全部删除之-->
+			<label>
+				<input type="text" v-on:keyup.delete="clearContent" v-model="uname">
+			</label> <br>
+			<input type="text" v-on:keyup="captureKey" >
+
+
 		</div>
 		<script>
+			// 自定义按键修饰符,当按小写的A时,触发事件函数
+			Vue.config.keyCodes.selfKey = 65
 			var myApp = new Vue({
 				el: '#myApp',
 				data: {
-					game: 'LOL'
+					game: 'LOL',
+					uname: 'zs'
 				},
 				methods: {
 					btnClick: function(pname){
@@ -28,6 +45,22 @@
 						console.log(event.target.tagName) 
 						// 返回"点击"
 						console.log(event.target.innerHTML)
+					},
+					handle0: function () {
+						console.log('handle0 click')
+					},
+					handle1: function () {
+						console.log('handle1...')
+					},
+					handle2: function () {
+						console.log('阻止事件的默认行为....')
+					},
+					clearContent: function () {
+						console.log('clearContent...')
+						this.uname = ''
+					},
+					captureKey: function (event) {
+						console.log(event.keyCode)
 					}
 				}
 			});
