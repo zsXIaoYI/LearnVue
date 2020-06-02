@@ -9,7 +9,6 @@
 				display: none;
 			}
 		</style>
-		
 	</head>
 	<body>
 		<div>首页</div>
@@ -17,6 +16,7 @@
 			<p v-bind:title="title">点下</p>
 		</div>
 		<script>
+			<!-- 操作中的this对象是指myApp -->
 			var myApp = new Vue({
 				el:'#myApp',
 				data:{
