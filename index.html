@@ -3,18 +3,25 @@
 	<head>
 		<meta charset="utf-8">
 		<title>首页</title>
-		<script src="vue.js" type="text/javascript" charset="UTF-8 "></script>
+		<script src="js/vue.js" type="text/javascript" charset="UTF-8 "></script>
+		<style type="text/css">
+			[v-cloak]{
+				display: none;
+			}
+		</style>
 		
 	</head>
 	<body>
 		<div>首页</div>
-		<div id="myApp">{{message}}
+		<div id="myApp" v-cloak>{{message}}
+			<p v-bind:title="title">点下</p>
 		</div>
 		<script>
 			var myApp = new Vue({
 				el:'#myApp',
 				data:{
-					message: 'hello 菜B'
+					message: 'hello 菜B',
+					title: '点点'
 				}
 			});
 		</script>
