@@ -11,13 +11,27 @@
 			<!-- 回显myGame,在输入框中输入时并能改变myGame
 			 v-model实现双向数据绑定
 			 -->
-			<input v-model="myGame" />
+			<input v-model="myGame" /> <br><br>
+			<!-- v-model的实现原理
+			 -->
+			<label>
+				<input type="text" v-bind:value="msg" v-on:input="handle">
+			</label>
+			<div>
+				your input is, {{msg}}
+			</div>
 		</div>
 		<script>
 			var myApp = new Vue({
 				el: '#myApp',
 				data: {
-					myGame: 'DNF'
+					myGame: 'DNF',
+					msg: 'hello'
+				},
+				methods: {
+					handle: function (event) {
+						this.msg = event.target.value
+					}
 				}
 			});
 		</script>
