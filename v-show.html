@@ -7,7 +7,8 @@
 	</head>
 	<body>
 		<div id="myApp">
-			<!-- 
+			<!--
+			页面局部经常变化使用v-show,if操作会操作dom,影响性能.
 			当result为false时, 给h1标签添加style="display: none;"的样式
 			 -->
 			<h1 v-show="result">新游戏</h1>

@@ -13,8 +13,14 @@
 			 -->
 			<div v-if="seen">2017年最新发布</div>
 			<ol>
-				<li v-for="game in games">{{game.title}} / {{game.price}}</li>
+				<li v-bind:key="index" v-for="(game, index) in games">{{game.title}} / {{game.price}}</li>
 			</ol>
+			<p>for循环遍历对象</p>
+			<div>
+				<ul>
+					<li v-for="(v, k, i) in user"> {{k + '..' + v + '...' + i}}</li>
+				</ul>
+			</div>
 		</div>
 		<script>
 			var myApp = new Vue({
@@ -30,7 +36,11 @@
 							title: '刀塔2',
 							price: 300
 						}
-					]
+					],
+					user: {
+						name: '小白',
+						age: 26
+					}
 				}
 			});
 		</script>
