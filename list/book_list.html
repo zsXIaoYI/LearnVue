@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图书列表</title>
+    <script src="../js/vue.js" type="text/javascript" charset="UTF-8"></script>
+    <link href="../css/book_list.css" rel="stylesheet" />
+</head>
+<body>
+<div id="myApp">
+    <div class="grid">
+        <div>
+            <h1>图书管理</h1>
+            <div class="book">
+                <div>
+                    <label for="id">
+                        编号：
+                    </label>
+                    <input type="text" id="id" v-model='id' v-bind:disabled="flag" v-focus>
+                    <label for="name">
+                        名称：
+                    </label>
+                    <input type="text" id="name" v-model='name'>
+                    <button @click='handle2' :disabled="submitFlag">提交</button>
+                </div>
+            </div>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>编号</th>
+                <th>名称</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr :key='item.id' v-for='item in books'>
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>
+                    <a href="" @click.prevent="toEdit(item.id)">修改</a>
+                    <span>|</span>
+                    <a href="" @click.prevent="deleteBook(item.id)">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    // 输入表单得到焦点
+    Vue.directive('focus', {
+        inserted: function (el) {
+            el.focus();
+        }
+    })
+    var myApp = new Vue({
+        el: '#myApp',
+        data: {
+            id: '',
+            name: '',
+            // disabled=true,禁止输入框编辑
+            flag: false,
+            submitFlag: false,
+            books: [{
+                id: 1,
+                name: '三国演义',
+            }
+            ,{
+                id: 2,
+                name: '水浒传',
+            },{
+                id: 3,
+                name: '红楼梦',
+            },{
+                id: 4,
+                name: '西游记',
+            }
+            ]
+        },
+        // 监听name属性,如果books中包含输入框输入的书名,则禁用提交按钮
+        watch: {
+          name: function (val) {
+              this.submitFlag = this.books.some(function (item) {
+                  return item.name === val;
+              });
+          }
+        },
+        methods: {
+            handle: function () {
+                // 添加图书
+                var book = {};
+                if (this.id === '' || this.name === ''){
+                    alert("编号和名称不能为空");
+                    return;
+                }
+                book.id = this.id;
+                book.name = this.name;
+                this.books.push(book);
+            },
+            handle2: function () {
+                // flag为true,则代表为编辑、修改操作
+                if (this.flag){
+                    this.books.some((item) => {
+                        // this.id中的this是指Vue对象
+                        if (item.id === this.id){
+                           item.name = this.name;
+                           // 完成更新操作之后,需要终止循环
+                           return true;
+                       }
+                    });
+                    this.flag = false;
+                }else {
+                    this.handle();
+                }
+                // 清空表单
+                this.id = '';
+                this.name = '';
+            },
+            // 点击修改,表单回显
+            toEdit: function (id) {
+                this.flag = true;
+                var book = this.books.filter(function (item) {
+                    return item.id === id;
+                });
+                console.log("book:", book)
+                // 赋值,并回显
+                this.id = book[0].id;
+                this.name = book[0].name;
+            },
+            // 根据id删除图书
+            deleteBook: function (id) {
+                let index = this.books.findIndex(function (item) {
+                    return item.id === id;
+                });
+                console.log(index);
+                this.books.splice(index);
+            }
+        }
+    });
+</script>
+</body>
+</html>

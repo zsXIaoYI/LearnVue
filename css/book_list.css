@@ -1,0 +1,33 @@
+#myApp {
+    /* #myApp,表示id为myApp的选择器
+     */
+    background-color: #bce8f1;
+    height: 500px;
+}
+/*
+  grid是myApp下的一个子div
+*/
+.grid {
+    padding-top: 20px;
+    margin: auto;
+    width: 500px;
+    text-align: center;
+}
+.grid table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.grid th,td {
+    padding: 10px;
+    border: 1px dashed orange;
+    height: 35px;
+    line-height: 35px;
+}
+.grid th {
+    background-color: orange;
+}
+.grid .book {
+    padding-bottom: 10px;
+    padding-top: 5px;
+    background-color: #F3DCAB;
+}
