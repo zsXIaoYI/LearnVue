@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>组件学习</title>
-		<script src="js/vue.js" type="text/javascript" charset="UTF-8"></script>
+		<script src="../js/vue.js" type="text/javascript" charset="UTF-8"></script>
 	</head>
 	<body>
 		<div id="myApp">
@@ -12,7 +12,8 @@
 		</div>
 		<script>
 			// 自定义全局组件
-			Vue.component('today-weather', {
+			// 使用驼峰命名法命名的组件时,在上述html中使用模板,必须使用首字母小写+短线连接的方式
+			Vue.component('TodayWeather', {
 				template: '<div>今天刮10级大风</div>'
 			});
 			var myApp = new Vue({
