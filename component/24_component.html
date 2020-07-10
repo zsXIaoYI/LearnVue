@@ -9,10 +9,22 @@
 		<div id="myApp">
 			<h4>今天天气:</h4>
 			<weather></weather>
+			------------------
+			<test></test>
 		</div>
 		
 		<script>
-			// 声明一个局部组件
+			// 在该全局组件中使用<weather-component>组件,会报错
+			// Unknown custom element: <weather-component> - did you register the component correctly?
+			// For recursive components, make sure to provide the "name" option
+			Vue.component('test', {
+				template:
+				`<div>
+                   <p>test</p>
+<!--                   <weather-component></weather-component>-->
+                </div>`
+			})
+			// 声明一个局部组件,局部组件只能在myApp中使用
 			var weatherComponent = {
 				template: '<div>下大雨</div>'
 			};
