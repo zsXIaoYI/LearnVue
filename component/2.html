@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>子组件传递事件给父组件</title>
+    <script src="../js/vue.js" type="text/javascript" charset="UTF-8"></script>
+</head>
+<body>
+<div id="myApp">
+    <div :style='{fontSize: fontSize + "px"}'>嘻嘻嘻</div>
+    <menu-item :fruits="fruits" @enlarge-text="handle($event)"></menu-item>
+</div>
+<script>
+    Vue.component('menu-item', {
+        props: ['fruits'],
+        template: `
+                <div>
+                    <ul>
+                        <li :key="index" v-for="(item, index) in fruits">{{item}}</li>
+                    </ul>
+                    <button @click='$emit("enlarge-text", 2)'>增大字体</button>
+                </div>
+        `
+    })
+    var myApp = new Vue({
+        el: '#myApp',
+        data: {
+            fruits: ['Apple', 'Orange', 'banana'],
+            fontSize: 10
+        },
+        methods: {
+            handle: function (val) {
+                console.log(val)
+                this.fontSize += val
+            }
+        }
+    })
+</script>
+</body>
+</html>
