@@ -22,7 +22,7 @@
             text-align: center;
             border-top: 1px solid blue;
             border-right: 1px solid blue;
-            cursor
+            /*cursor*/
         }
         .tab ul li:first-child {
             border-left: 1px solid blue;
@@ -49,7 +49,12 @@
 <div id="myApp">
     <div class="tab">
         <ul>
-            <li v-on:click='change(index)' :class='currentIndex===index?"active":""' :key='item.id' v-for='(item,index) in list'>{{item.title}}</li>
+          <!-- 给li标签绑定一个点击事件,用以改变当前的索引值
+               给li标签也绑定一个class属性,当currentIndex === index时,绑定的class属性值为active
+               即class="active"
+          -->
+            <li v-on:click='change(index)' :class='currentIndex===index?"active":""'
+                :key='item.id' v-for='(item,index) in list'>{{item.title}} + {{index}}</li>
         </ul>
         <div :class='currentIndex===index?"current":""' :key='item.id' v-for='(item, index) in list'>
             <img :src="item.path">
