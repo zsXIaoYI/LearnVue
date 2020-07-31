@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图书列表</title>
+    <script src="../js/vue.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="../js/axios.js" type="text/javascript" charset="UTF-8"></script>
+    <link href="../css/book_list.css" rel="stylesheet" />
+</head>
+<body>
+<div id="myApp" v-cloak>
+    <div class="grid">
+        <div>
+            <h1>图书管理</h1>
+            <div class="book">
+                <div>
+                    <label for="id">
+                        编号：
+                    </label>
+                    <input type="text" id="id" v-model='id' disabled v-focus>
+                    <label for="name">
+                        名称：
+                    </label>
+                    <input type="text" id="name" v-model='name' @blur="isExist($event)">
+                    <button @click='handle2' :disabled="submitFlag">提交</button>
+                </div>
+            </div>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>编号</th>
+                <th>名称</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr :key='item.id' v-for='item in books'>
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>
+                    <a href="" @click.prevent="toEdit(item.id)">修改</a>
+                    <span>|</span>
+                    <a href="" @click.prevent="deleteBook(item.id)">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    // axios全局配置
+    axios.defaults.baseURL = "http://localhost:7020/book/"
+    axios.interceptors.response.use(function (res) {
+        return res.data
+    }, function (error) {
+        console.log(error)
+    })
+    // 输入表单得到焦点
+    Vue.directive('focus', {
+        inserted: function (el) {
+            el.focus();
+        }
+    })
+    var myApp = new Vue({
+        el: '#myApp',
+        data: {
+            id: '',
+            name: '',
+            // disabled=true,禁止输入框编辑
+            flag: false,
+            submitFlag: false,
+            books: []
+        },
+        // 监听name属性,如果books中包含输入框输入的书名,则禁用提交按钮
+        // watch: {
+        //     name: async function (event) {
+        //         var ret = await axios.get("isExist?bookName=" + this.name);
+        //         this.submitFlag = ret.code === 200 && ret.data === 1;
+        //     }
+        // },
+        methods: {
+            // 添加一本图书
+            handle: async function () {
+                if (this.name === ''){
+                    alert("编号和名称不能为空");
+                    return;
+                }
+                let ret = await axios.post("addBook", {
+                    name: this.name
+                });
+                // 如果调用添加图书接口成功,则调用图书列表接口,刷新当前页面图书列表
+                if (ret.code === 200){
+                     await this.queryBookList();
+                }
+            },
+            handle2: async function () {
+                // flag为true,则代表为编辑、修改操作
+                if (this.flag){
+                    let response = await axios.post("updateBook", {
+                        id: this.id,
+                        name: this.name
+                    })
+                    if (response.code === 200){
+                        await this.queryBookList();
+                    }
+                    this.flag = false;
+                }else {
+                    await this.handle();
+                }
+                // 清空表单
+                this.id = '';
+                this.name = '';
+            },
+            // 点击修改,表单回显,调取后台详情接口
+            toEdit: async function (id) {
+                this.flag = true;
+                let res = await axios.get("/" + id);
+                this.id = res.data.id;
+                this.name = res.data.name;
+            },
+            // 根据id删除图书
+            deleteBook: async function (id) {
+                let res = await axios.post("deleteBook", {
+                    id: id
+                });
+                if (res.code === 200){
+                    await this.queryBookList();
+                }
+            },
+            // 异步调用后台图书列表接口
+            queryBookList: async function(){
+                let result = await axios.get("bookList");
+                console.log('result:', result)
+                this.books = result.data
+            },
+            // 图书名称输入框失去焦点进行校验,校验图书是否存在
+            isExist: async function(event){
+                debugger
+                console.log(event.target.value)
+                if (this.name !== ''){
+                    var ret = await axios.get("isExist?bookName=" + this.name);
+                    this.submitFlag = ret.code === 200 && ret.data === 1;
+                }
+            }
+        },
+       mounted: function () {
+           this.queryBookList();
+
+           // axios.get('bookList').then((data)=>{
+           //   console.log(data)
+           //   this.books = data.data;
+           // })
+       }
+    });
+</script>
+</body>
+</html>
