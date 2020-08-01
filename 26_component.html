@@ -9,12 +9,19 @@
 		<div id="myApp">
 			<div>今天的天气:<weather/></div>
 		</div>
-		
 		<script>
 			Vue.component('weather', {
 				template: '<strong>{{todayWeather}}</strong>',
 				// data返回一个函数
+				/*
 				data: function(){
+					return {
+						todayWeather: '雨夹雪'
+					}
+				}
+				 */
+				// 上述注释中代码可以写成如下形式
+				data() {
 					return {
 						todayWeather: '雨夹雪'
 					}
