@@ -7,10 +7,11 @@
 	</head>
 	<body>
 		<div id="myApp">
-			<div>今天的天气:<weather/></div>
+			<div>今天的天气:<weather></weather></div>
 		</div>
 		<script>
 			Vue.component('weather', {
+				// 组件必须有一个根元素,不能同时两个strong标签并列
 				template: '<strong>{{todayWeather}}</strong>',
 				// data返回一个函数
 				/*
