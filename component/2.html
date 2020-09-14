@@ -8,6 +8,7 @@
 <body>
 <div id="myApp">
     <div :style='{fontSize: fontSize + "px"}'>嘻嘻嘻</div>
+    <!-- enlarge-text必须和component中定义的名称一致   -->
     <menu-item :fruits="fruits" @enlarge-text="handle($event)"></menu-item>
 </div>
 <script>
