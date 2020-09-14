@@ -8,22 +8,27 @@
 <body>
 <div id="myApp">
 <menu-item title="myApp父组件数据"></menu-item>
-<menu-item v-bind:title="ptitle"></menu-item>
+  <!-- 绑定布尔值的属性,bool前面冒号不能省略-->
+<menu-item v-bind:title="ptitle" v-bind:menu-title="menuTitle" :bool="true"></menu-item>
 </div>
 <script>
     Vue.component('menu-item', {
-        props: ['title'],
+        // 对于绑定的属性名为驼峰命名时,其父组件在v-bind操作时,要用短横线连接
+        props: ['title', 'menuTitle', 'bool'],
         data: function () {
             return {
                 msg: '子组件'
             }
         },
-        template: '<div>{{msg}}...{{title}}</div>'
+        template: `
+            <div>{{msg}}...{{title}}...{{menuTitle}}...{{typeof bool}}</div>
+        `
     })
     var myApp = new Vue({
         el: '#myApp',
         data: {
-            ptitle: '绑定数据'
+            ptitle: '绑定数据',
+            menuTitle: '驼峰绑定'
         }
     })
 </script>
