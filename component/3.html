@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域插槽使用</title>
+    <script src="../js/vue.js" type="text/javascript" charset="UTF-8"></script>
+    <style type="text/css">
+        .current {
+            color: #ffa500;
+        }
+    </style>
+</head>
+<body>
+<div id="myApp">
+    <fruit-list :list="list">
+        <!--  slotProps可以随便命名  -->
+        <template slot-scope="slotProps">
+            <!-- id为2的水果,样式渲染成current  -->
+            <strong v-if="slotProps.info.id===2" class="current">{{slotProps.info.name}}</strong>
+            <span v-else>{{slotProps.info.name}}</span>
+        </template>
+    </fruit-list>
+</div>
+<script>
+    // 作用域插槽
+    Vue.component('fruit-list', {
+        props: ['list'],
+        template: `
+                <div>
+                    <li v-bind:key="item.id" v-for="item in list">
+                        <slot v-bind:info="item">{{item.name}}</slot>
+                    </li>
+                </div>
+        `
+    })
+    let myApp = new Vue({
+        el: '#myApp',
+        data: {
+            list: [{
+                id: 1,
+                name: 'apple'
+            },{
+                id: 2,
+                name: 'orange'
+            },{
+                id: 3,
+                name: 'banana'
+            }]
+        }
+    })
+</script>
+</body>
+</html>
