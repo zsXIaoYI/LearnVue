@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车组件</title>
+    <script src="../js/vue.js" type="text/javascript" charset="UTF-8"></script>
+    <link href="../css/cart_list.css" rel="stylesheet" />
+</head>
+<body>
+<div id="myApp">
+    <div class="container">
+        <my-cart></my-cart>
+    </div>
+</div>
+<script>
+    let cartTitle = {
+        props: ['uname'],
+        template: `
+                <div class="title">{{uname}}的购物车</div>
+        `
+    }
+    let cartList = {
+        props: ['list'],
+        template: `
+                <div>
+                    <div :key="item.id" v-for="item in list" class="item">
+                        <img v-bind:src="item.img" alt="..">
+                        <div class="name">{{item.name}}</div>
+                        <div class="change">
+                            <a href="" @click.prevent="sub(item.id)">－</a>
+                            <input type="text" class="num" :value="item.num"
+                                   @blur="changeNum(item.id, $event)"/>
+                            <a href="" @click.prevent="add(item.id)">＋</a>
+                        </div>
+                        <div class="del" @click='del(item.id)'>×</div>
+                    </div>
+                </div>
+        `,
+        methods: {
+            // 改变购物车商品的数量,购物车输入框失去焦点,调用该方法获取当前商品的新的数量
+            // event.target.value获取当前表单框的最新值,其类型为字符串
+            changeNum: function(id, event){
+                console.log(typeof event.target.value)
+                console.log(id, event.target.value)
+                this.$emit('change-num', {
+                    id: id,
+                    type: 'change',
+                    // 获取当前商品的数量
+                    num: event.target.value
+                })
+            },
+            // 点击减号
+            sub: function(id){
+                this.$emit('change-num', {
+                    id: id,
+                    type: 'sub'
+                })
+            },
+            // 点击加号
+            add: function(id){
+                this.$emit('change-num', {
+                    id: id,
+                    type: 'add'
+                })
+            },
+            // 购物车删除一条
+            del: function (id) {
+                this.$emit('cart-del', id)
+            },
+        }
+    }
+    let cartTotal = {
+        props: ['list'],
+        template: `
+                <div class="total">
+                    <span>总价：{{total}}</span>
+                    <button>结算</button>
+                </div>
+        `,
+        computed: {
+            total: function () {
+                // 计算商品总价
+                var t = 0;
+                this.list.forEach(item => {
+                    t += item.price * item.num
+                });
+                return t
+            }
+        }
+    }
+
+    Vue.component('my-cart', {
+        data: function () {
+            return {
+                uname: '小白',
+                list: [{
+                    id: 1,
+                    name: 'TCL彩电',
+                    price: 1000,
+                    num: 1,
+                    img: '../img/a.jpg'
+                },{
+                    id: 2,
+                    name: '机顶盒',
+                    price: 1000,
+                    num: 1,
+                    img: '../img/b.jpg'
+                },{
+                    id: 3,
+                    name: '海尔冰箱',
+                    price: 1000,
+                    num: 1,
+                    img: '../img/c.jpg'
+                },{
+                    id: 4,
+                    name: '小米手机',
+                    price: 1000,
+                    num: 1,
+                    img: '../img/d.jpg'
+                },{
+                    id: 5,
+                    name: 'PPTV电视',
+                    price: 1000,
+                    num: 2,
+                    img: '../img/e.jpg'
+                }]
+            }
+        },
+        template: `
+                <div class="cart">
+                    <cart-title v-bind:uname="uname"></cart-title>
+                    <cart-list :list="list" @change-num="changeNum($event)" @cart-del="delCart($event)"></cart-list>
+                    <cart-total v-bind:list="list"></cart-total>
+                </div>
+        `,
+        components: {
+            'cart-title': cartTitle,
+            'cart-list': cartList,
+            'cart-total': cartTotal
+        },
+        methods: {
+            changeNum: function (val) {
+                if (val.type === 'change'){
+                    this.list.some(item => {
+                        if (item.id === val.id){
+                            item.num = val.num
+                            return true
+                        }
+                    })
+                }else if (val.type === 'sub'){
+                    this.list.some(item => {
+                        if (item.id === val.id){
+                            if (item.num <= 1){
+                                return 
+                            }
+                            item.num -= 1
+                            return true
+                        }
+                    })
+                }else if (val.type === 'add'){
+                    this.list.some(item => {
+
+                        if (item.id === val.id){
+                            item.num += 1
+                            return true
+                        }
+                    })
+                }
+            },
+            delCart: function (id) {
+                let index = this.list.findIndex(item => {
+                    return item.id === id;
+                });
+                this.list.splice(index, 1)
+            }
+        }
+    })
+
+    let myApp = new Vue({
+        el: '#myApp',
+        data: {
+            ptitle: '绑定数据'
+        }
+    });
+</script>
+
+</body>
+</html>

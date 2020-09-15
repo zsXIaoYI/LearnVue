@@ -81,6 +81,7 @@
         // 监听name属性,如果books中包含输入框输入的书名,则禁用提交按钮
         watch: {
           name: function (val) {
+              console.log('val:', val)
               this.submitFlag = this.books.some(function (item) {
                   return item.name === val;
               });
@@ -134,7 +135,7 @@
                     return item.id === id;
                 });
                 console.log(index);
-                this.books.splice(index);
+                this.books.splice(index, 1);
             }
         }
     });
