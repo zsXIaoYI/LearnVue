@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>axios练习</title>
+    <script src="../js/axios.js" type="text/javascript" charset="UTF-8"></script>
+</head>
+<body>
+<script>
+    // 实际生产环境,调取后台的接口返回的数据
+    // axios.get("http://localhost:7020/book/bookList")
+    // .then(res =>{
+    //     var result = res.data;
+    //     if (result.code === 200){
+    //         console.log(result.data)
+    //     }
+    // })
+
+    // async:异步的意思
+    async function queryData(url) {
+        const ret = await axios.get(url);
+        return ret
+    }
+    queryData("http://localhost:7020/book/bookList")
+    .then(res => {
+        console.log('res:', res)
+    })
+</script>
+</body>
+</html>

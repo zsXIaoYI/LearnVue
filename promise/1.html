@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>promise用法</title>
+</head>
+<body>
+<script>
+
+    function queryData(url) {
+        return new Promise(function (resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState !== 4) {
+                    return;
+                }
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    resolve(xhr.responseText);
+                } else {
+                    reject("服务器错误");
+                }
+            };
+            xhr.open('get', url);
+            xhr.send();
+        });
+    }
+    queryData("http://localhost:7020/vue/t1")
+    .then(function (data) {
+        console.log('t1:', data)
+        return queryData("http://localhost:7020/vue/t2")
+    }).then(function (data) {
+        console.log('t2:', data)
+        return new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                resolve("next")
+            }, 1000)
+        })
+    }).then(function (data) {
+        console.log(data)
+    })
+
+</script>
+
+</body>
+</html>

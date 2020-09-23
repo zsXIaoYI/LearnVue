@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fetch请求</title>
+</head>
+<body>
+<script>
+    /**
+     * data.text()返回一个Promise对象
+     * get请求传参
+     *  http://localhost:7020/vue/ft1?id=123
+     *  console.log(data.text())后再写data.text()会报如下错误
+     *    TypeError: Failed to execute 'text' on 'Response': body stream is locked
+     */
+    fetch("http://localhost:7020/vue/ft2/123")
+        .then(function (data) {
+            // console.log(data.text())
+            return data.text();
+        }).then(function (data) {
+        console.log('data:', data)
+    })
+
+
+    /**
+     * post请求,参数采取表单形式
+    fetch("http://localhost:7020/vue/ft3", {
+        method: 'post',
+        body: 'id=123&name=小白',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+        .then(function (data) {
+            return data.text();
+        }).then(function (data) {
+        console.log('data:', data)
+    })
+     */
+    /**
+     * post请求,参数为json对象
+
+    fetch("http://localhost:7020/vue/ft4", {
+        method: 'post',
+        body: JSON.stringify({
+           id: 123,
+           name: '李黑'
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (data) {
+            return data.text();
+        }).then(function (data) {
+        console.log('data:', data)
+    })*/
+    /**
+     * data.json()返回的也是Promise对象
+
+    fetch("http://localhost:7020/vue/ft5").then(function (data) {
+        // return data.json();
+        return data.text()
+    }).then(function (data) {
+        // data返回json格式的对象 {id: 111, name: "小黑儿"}
+        console.log('data:', data)
+        // 当return data.text()时,第二个then中console.log(data)中的data是字符串类型,可以用JSON.parse()方法转换成json对象
+        var obj = JSON.parse(data)
+        console.log(obj.name)
+    })*/
+    /**
+     * 第二个then可以写成如下格式
+     * .then(res => {
+        console.log(res)
+       })
+      */
+</script>
+</body>
+</html>

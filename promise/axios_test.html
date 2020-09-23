@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>axios test测试</title>
+    <script src="../js/axios.js" type="text/javascript" charset="UTF-8"></script>
+</head>
+<body>
+<script>
+    async function fn() {
+        // throw new Error("rejected!")
+        return "hello"
+    }
+    /*
+        fn()方法返回一个Promise对象
+        Promise {<resolved>: "hello"}
+     */
+    console.log(fn())
+    fn().then(res => {
+        console.log(res)
+    }).catch(err => {
+        console.log(err)
+    })
+
+    function doubleNum(num) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(num * 2)
+            }, 2000)
+        })
+    }
+    async function fn2() {
+        let res = await doubleNum(3);
+        console.log(res)
+    }
+    console.log(fn2())
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>axios调用接口</title>
+    <script src="../js/axios.js" type="text/javascript" charset="UTF-8"></script>
+</head>
+<body>
+<script>
+
+    // get传参在后面加?拼接
+    /**
+    axios.get("http://localhost:7020/vue/t1")
+    .then(function (res) {
+        // res是object类型
+        console.log(typeof res)
+        console.log(res.data)
+    })*/
+    /**
+     * 以对象的形式传参
+    axios.get("http://localhost:7020/vue/ft1", {
+        params: {
+            id: 125
+        }
+    }).then(function (res) {
+            /
+            / res是object类型
+            console.log(typeof res)
+            console.log(res.data)
+        })*/
+    /**
+     * 默认是以json对象的形式传递参数
+
+    axios.post("http://localhost:7020/vue/ft4", {
+        id: 125,
+        name: '小小'
+    }).then(function (res) {
+        // res是object类型
+        console.log(typeof res)
+        console.log(res.data)
+    })*/
+    /**
+     * post请求,参数以表单形式传递
+
+    var params = new URLSearchParams();
+    params.append("id", "123");
+    params.append("name", "小菜");
+    axios.post("http://localhost:7020/vue/ft3", params)
+        .then(function (res) {
+        // res是object类型
+        console.log(typeof res)
+        console.log(res.data)
+    })*/
+    // 请求url返回json格式的数据,其中res.data为json对象
+    axios.get("http://localhost:7020/vue/ft5")
+        .then(function (res) {
+            // res是object类型
+            console.log('res:', res )
+            console.log(res.data.name)
+        },function (err) {
+            console.log('err:', err)
+        })
+    // 上述代码,then中第二个function()处理服务器错误返回
+
+</script>
+</body>
+</html>

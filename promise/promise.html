@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>promise实例</title>
+</head>
+<body>
+<script>
+    console.log(typeof Promise)
+    console.dir(Promise)
+    var p = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            var flag = false
+            if (flag){
+                resolve('hello')
+            }else {
+                reject('error')
+            }
+        },100)
+    })
+    p.then(function (ret) {
+        console.log(ret)
+    }, function (res) {
+        console.log(res)
+    })
+</script>
+</body>
+</html>

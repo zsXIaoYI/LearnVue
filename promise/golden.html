@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图书列表</title>
+    <script src="../js/vue.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="../js/axios.js" type="text/javascript" charset="UTF-8"></script>
+    <link href="../css/golden.css" rel="stylesheet" />
+</head>
+<body>
+<div id="myApp" v-cloak>
+    <div class="grid">
+        <div>
+            <h1>贵金属价格录入管理</h1>
+            <div class="book">
+                <div>
+                    <label>
+                        贵金属名称：
+                    </label>
+                    <label>
+                        <select v-model="metalName">
+                            <option value="伦敦金">伦敦金</option>
+                            <option value="伦敦银" selected>伦敦银</option>
+                           <option value="黄金t+d">黄金t+d</option>
+                            <option value="白银t+d">白银t+d</option>
+                        </select>
+                    </label>
+                </div>
+                <div>
+                <label for="openPrice">
+                        开&nbsp;&nbsp;盘&nbsp;&nbsp;价：
+                    </label>
+                    <input type="text" id="openPrice" v-model='openPrice' @blur="isExist($event)">
+                </div>
+                <div>
+                    <label for="highestPrice">
+                        最&nbsp;&nbsp;高&nbsp;&nbsp;价：
+                    </label>
+                    <input type="text" id="highestPrice" v-model='highestPrice' @blur="isExist($event)">
+                </div>
+                <div>
+                    <label for="yesterdayClosePrice">
+                        昨&nbsp;&nbsp;收&nbsp;&nbsp;价：
+                    </label>
+                    <input type="text" id="yesterdayClosePrice" v-model='yesterdayClosePrice' @blur="isExist($event)">
+                </div>
+                <div>
+                    <label for="lowestPrice">
+                        最&nbsp;&nbsp;低&nbsp;&nbsp;价：
+                    </label>
+                    <input type="text" id="lowestPrice" v-model='lowestPrice' @blur="isExist($event)">
+                </div>
+                <button @click='handle2' :disabled="submitFlag">提交</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // axios全局配置
+    axios.defaults.baseURL = "http://localhost:7020/book/"
+    axios.interceptors.response.use(function (res) {
+        return res.data
+    }, function (error) {
+        console.log(error)
+    })
+    // 输入表单得到焦点
+    Vue.directive('focus', {
+        inserted: function (el) {
+            el.focus();
+        }
+    })
+    var myApp = new Vue({
+        el: '#myApp',
+        data: {
+            metalName: '伦敦金',
+            name: '',
+            // disabled=true,禁止输入框编辑
+            flag: false,
+            submitFlag: false,
+            books: []
+        },
+
+        methods: {
+            // 添加一本图书
+            handle: async function () {
+                if (this.name === ''){
+                    alert("编号和名称不能为空");
+                    return;
+                }
+                let ret = await axios.post("addBook", {
+                    name: this.name
+                });
+                // 如果调用添加图书接口成功,则调用图书列表接口,刷新当前页面图书列表
+                if (ret.code === 200){
+                     await this.queryBookList();
+                }
+            },
+            handle2: async function () {
+                // flag为true,则代表为编辑、修改操作
+                if (this.flag){
+                    let response = await axios.post("updateBook", {
+                        id: this.id,
+                        name: this.name
+                    })
+                    if (response.code === 200){
+                        await this.queryBookList();
+                    }
+                    this.flag = false;
+                }else {
+                    await this.handle();
+                }
+                // 清空表单
+                this.id = '';
+                this.name = '';
+            },
+            // 点击修改,表单回显,调取后台详情接口
+            toEdit: async function (id) {
+                this.flag = true;
+                let res = await axios.get("/" + id);
+                this.id = res.data.id;
+                this.name = res.data.name;
+            },
+            // 根据id删除图书
+            deleteBook: async function (id) {
+                let res = await axios.post("deleteBook", {
+                    id: id
+                });
+                if (res.code === 200){
+                    await this.queryBookList();
+                }
+            },
+            // 异步调用后台图书列表接口
+            queryBookList: async function(){
+                let result = await axios.get("bookList");
+                console.log('result:', result)
+                this.books = result.data
+            },
+            // 图书名称输入框失去焦点进行校验,校验图书是否存在
+            isExist: async function(event){
+                debugger
+                console.log(event.target.value)
+                if (this.name !== ''){
+                    var ret = await axios.get("isExist?bookName=" + this.name);
+                    this.submitFlag = ret.code === 200 && ret.data === 1;
+                }
+            }
+        },
+       mounted: function () {
+           this.queryBookList();
+
+           // axios.get('bookList').then((data)=>{
+           //   console.log(data)
+           //   this.books = data.data;
+           // })
+       }
+    });
+</script>
+</body>
+</html>
