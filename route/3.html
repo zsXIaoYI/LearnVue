@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动态路由匹配</title>
+    <script src="../js/vue.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="../js/vue-router.js" type="text/javascript" charset="UTF-8"></script>
+</head>
+<body>
+<div id="myApp">
+    <router-link to="/user/1">用户1</router-link>
+    <router-link to="/user/2">用户2</router-link>
+    <router-link to="/user/3">用户3</router-link>
+
+    <!-- 路由占位符-->
+    <router-view></router-view>
+</div>
+<script>
+
+
+    /*
+    用$route.params.id获取id参数的值
+    const user = {
+        template: '<h1>用户id为{{$route.params.id}}</h1>'
+    }
+
+    const router = new VueRouter({
+        routes: [
+            // 动态路径参数,以冒号开头,id为参数
+            { path: '/user/:id', component: user}
+        ]
+    })
+     */
+
+    /*
+    使用props接收路由参数
+    const user = {
+        props: ['id'],
+        template: '<h1>用户id为 {{id}} </h1>'
+    }
+
+    const router = new VueRouter({
+        routes: [
+            // props设置成true,route.params将会被设置为组件属性
+            { path: '/user/:id', component: user, props: true}
+        ]
+    })
+     */
+
+    /*
+    const user = {
+        props: ['uname', 'age'],
+        template: '<h1>用户名为为 {{uname}}, 年龄: {{age}} </h1>'
+    }
+
+    const router = new VueRouter({
+        routes: [
+            // props可以设置为一个对象,它会被原样设置为组件属性
+            { path: '/user/:id', component: user, props: {uname: '小黑', age: 28}}
+        ]
+    })
+     */
+    const user = {
+        props: ['id', 'uname', 'age'],
+        template: '<h1>用户名id为{{id}},姓名: {{uname}}, 年龄: {{age}} </h1>'
+    }
+
+    const router = new VueRouter({
+        routes: [
+            // props可以设置一个箭头函数,传递一个对象过去
+            { path: '/user/:id', component: user,
+                props: route => ({uname: '小黑', age: 28, id:route.params.id})}
+        ]
+    })
+    const myApp = new Vue({
+        el: '#myApp',
+        data: {
+        },
+        // 挂载路由实例对象,
+        // es6中属性名和属性值所指的变量是一样的,可以简写为router
+        router: router
+    });
+
+</script>
+</body>
+</html>

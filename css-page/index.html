@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index页面</title>
+    <style>
+       .outer{
+           width: 800px;
+           height: 200px;
+           border: 10px red solid;
+       }
+        /*
+        inner div在outer div里面,设置其margin-left:使其向右偏离100个像素
+        */
+        .inner{
+            width: 160px;
+            height: 160px;
+            background-color: #5bc0de;
+            /*margin-left: 100px;*/
+            margin-top: 20px;
+        }
+        /*
+        a1实际是420 * 420像素
+        200 + border * 2 + padding * 2
+        */
+        #a1{
+            width: 200px;
+            height: 200px;
+            border: 10px green solid;
+            padding: 10px;
+        }
+        #a2{
+            width: 100px;
+            height: 100px;
+            background-color: #98bf21;
+
+        }
+        .box3{
+            width: 200px;
+            height: 200px;
+            background-color: #449d44;
+        }
+       .box4{
+           width: 100px;
+           height: 100px;
+           background-color: orange;
+           margin-top: 100px;
+       }
+    </style>
+</head>
+<body>
+
+<div class="outer">
+    <div class="inner">
+    </div>
+</div>
+<br>
+
+<div id="a1">
+    <div id="a2">
+        hello
+    </div>
+</div>
+<br>
+
+<div class="box3">
+    <div class="box4">
+    </div>
+</div>
+
+
+
+</body>
+</html>

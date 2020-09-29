@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>slot组件插槽的使用</title>
+    <script src="../js/vue.js" type="text/javascript" charset="UTF-8"></script>
+</head>
+<body>
+<div id="myApp">
+    <!-- alert-box中什么也不填,将出现"默认弹窗"这几个字    -->
+    <alert-box></alert-box>
+    <alert-box>有错误发生</alert-box>
+</div>
+<script>
+    Vue.component('alert-box', {
+        template:
+        `<div>
+           <strong>ERROR:</strong>
+           <slot>默认弹窗</slot>
+        </div>
+        `
+    })
+    var myApp = new Vue({
+        el: '#myApp',
+        data: {
+
+        }
+    })
+</script>
+</body>
+</html>

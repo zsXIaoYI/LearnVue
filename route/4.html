@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编程式导航</title>
+    <script src="../js/vue.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="../js/vue-router.js" type="text/javascript" charset="UTF-8"></script>
+</head>
+<body>
+<div id="myApp">
+    <router-link to="/user">用户</router-link>
+    <router-link to="/register">注册</router-link>
+
+    <!-- 路由占位符-->
+    <router-view></router-view>
+</div>
+<script>
+    const user = {
+        template:
+            `<div>
+        <h1>用户 组件</h1>
+        <button @click="goRegister">跳转到注册页面</button>
+        </div>`,
+        methods: {
+            goRegister(){
+                this.$router.push('/register')
+            }
+        }
+    }
+    const register = {
+        template: `<div>
+          <h1>register组件</h1>
+          <button @click="goBack">后退</button>
+          <hr/>
+        </div>`,
+        methods: {
+            goBack() {
+                this.$router.go(-1)
+            }
+        }
+    }
+
+    const router = new VueRouter({
+        routes: [
+            // 重定向,当访问根路径时,重定向到user组件
+            {path: '/', redirect: '/user'},
+            // component不能接收字符串
+            { path: '/user', component: user},
+            {
+                path: '/register',
+                component: register
+            },
+        ]
+    })
+    const myApp = new Vue({
+        el: '#myApp',
+        data: {
+        },
+        // 挂载路由实例对象,
+        // es6中属性名和属性值所指的变量是一样的,可以简写为router
+        router: router
+    });
+
+</script>
+</body>
+</html>

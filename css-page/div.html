@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>div之间的padding</title>
+    <style>
+        .outer{
+            width: 400px;
+            height: 400px;
+            background-color: #4cae4c;
+            border:2px solid #DC4C40;
+            /*padding: 20px;*/
+        }
+        /*
+        inner实际占用(200 + 30 + 3*2) * (200 + 30 + 3*2)
+        */
+        .inner{
+            width: 200px;
+            height: 200px;
+            background-color: #ac2925;
+            margin-top: 20px;
+            margin-left: 40px;
+            border: 3px solid #ec971f;
+            padding-left: 30px;
+            padding-top: 30px;
+        }
+        .box1{
+            width: 800px;
+            height: 200px;
+            border: 2px solid #DC4C40;
+        }
+        .box2{
+            width: 400px;
+            height: 194px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 3px solid royalblue;
+        }
+    </style>
+</head>
+<body>
+
+<div class="outer">
+
+    <div class="inner">
+        张三
+    </div>
+</div><br><br>
+<div class="box1">
+    <div class="box2"></div>
+</div>
+
+</body>
+</html>

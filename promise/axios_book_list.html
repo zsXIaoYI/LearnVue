@@ -12,6 +12,7 @@
     <div class="grid">
         <div>
             <h1>图书管理</h1>
+            <div>图书总数: {{total}}</div>
             <div class="book">
                 <div>
                     <label for="id">
@@ -52,6 +53,7 @@
     // axios全局配置
     axios.defaults.baseURL = "http://localhost:7020/book/"
     axios.interceptors.response.use(function (res) {
+        // console.log(res)
         return res.data
     }, function (error) {
         console.log(error)
@@ -79,6 +81,11 @@
         //         this.submitFlag = ret.code === 200 && ret.data === 1;
         //     }
         // },
+        computed: {
+            total: function () {
+                return this.books.length
+            }
+        },
         methods: {
             // 添加一本图书
             handle: async function () {
@@ -144,6 +151,7 @@
                 }
             }
         },
+
        mounted: function () {
            this.queryBookList();
 

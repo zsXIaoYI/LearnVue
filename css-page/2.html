@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index页面</title>
+    <style>
+        /*
+        如果不设置边框,class为box4的div设置margin-top会导致box3向下移动100个px
+         */
+        .box3{
+            /*border: 10px red solid;*/
+            width: 200px;
+            height: 100px;
+            background-color: #449d44;
+            padding-top: 100px;
+        }
+       .box4{
+           width: 100px;
+           height: 100px;
+           background-color: orange;
+           /*margin-top: 100px;*/
+       }
+    </style>
+</head>
+<body>
+<div class="box3">
+    <div class="box4">
+    </div>
+</div>
+
+</body>
+</html>

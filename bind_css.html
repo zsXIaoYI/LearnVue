@@ -8,8 +8,10 @@
 	<body>
 		<div id="myApp">
 			<div v-bind:style="{color: activeColor, fontSize: fontSize + 'px'}">
-				绑定样式</div>
+					绑定样式</div>
 			<div v-bind:style="styleObject">样式上绑定一个对象</div>
+			<input type="text" :style="{backgroundColor: bgColor}"/><br>
+			<input type="text" style="background-color: #98bf21"/>
 		</div>
 		<script>
 			var myApp = new Vue({
@@ -20,7 +22,8 @@
 					styleObject: {
 						color: 'red',
 						fontSize: '18px'
-					}
+					},
+					bgColor: 'pink'
 				}
 			})
 		</script>
