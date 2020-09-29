@@ -33,7 +33,7 @@
      */
 
     /*
-    使用props接收路由参数
+    使用props接收路由参数, id必须和:id名一致  */
     const user = {
         props: ['id'],
         template: '<h1>用户id为 {{id}} </h1>'
@@ -45,7 +45,7 @@
             { path: '/user/:id', component: user, props: true}
         ]
     })
-     */
+
 
     /*
     const user = {
@@ -59,7 +59,7 @@
             { path: '/user/:id', component: user, props: {uname: '小黑', age: 28}}
         ]
     })
-     */
+
     const user = {
         props: ['id', 'uname', 'age'],
         template: '<h1>用户名id为{{id}},姓名: {{uname}}, 年龄: {{age}} </h1>'
@@ -71,7 +71,7 @@
             { path: '/user/:id', component: user,
                 props: route => ({uname: '小黑', age: 28, id:route.params.id})}
         ]
-    })
+    }) */
     const myApp = new Vue({
         el: '#myApp',
         data: {
