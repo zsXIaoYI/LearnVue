@@ -8,26 +8,30 @@
 	<body>
 		<div id="myApp">
 			<p>单选框</p>
-			<select v-model="likedGame">
-				<option>LOL</option>
-				<option>地下城</option>
-				<option>打刀塔</option>
-			</select>
+			<label>
+				<select v-model="likedGame">
+					<option>LOL</option>
+					<option>地下城</option>
+					<option>打刀塔</option>
+				</select>
+			</label>
 			<br/>
 			<p>多选框</p>
-			<select v-model="likedGames" multiple="multiple">
-				<option>LOL</option>
-				<option>地下城</option>
-				<option>打刀塔</option>
-				<option>消消乐</option>
-				<option>斗地主</option>
-				<option>魔兽争霸</option>
-			</select>
-			
+			<label>
+				<select v-model="likedGames" multiple="multiple">
+					<option>LOL</option>
+					<option>地下城</option>
+					<option>打刀塔</option>
+					<option>消消乐</option>
+					<option>斗地主</option>
+					<option>魔兽争霸</option>
+				</select>
+			</label>
+
 			<p>单选,最喜欢的游戏: {{likedGame}}</p>
 			<p>多选,最喜欢的游戏: {{likedGames}}</p>
 		</div>
-		
+
 		<script>
 			var myApp = new Vue({
 				el: '#myApp',
