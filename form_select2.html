@@ -11,20 +11,20 @@
 			<p>选择你的性别</p>
 			<input type="radio" id="male" value="男" v-model="gender"/>
 			<label for="male">男</label><br />
-			
-			<input type="radio" id="femmale" value="女" v-model="gender"/>
-			<label for="femmale">女</label><br />
-			
+
+			<input type="radio" id="female" value="女" v-model="gender"/>
+			<label for="female">女</label><br />
+
 			<p>选择你的爱好</p>
 			<input type="radio" id="movie" value="看电影" v-model="hobby"/>
-			<label for="movide">看电影</label><br />
-			
+			<label for="movie">看电影</label><br />
+
 			<input type="radio" id="game" value="玩游戏"  v-model="hobby"/>
 			<label for="game">玩游戏</label>
 			<p>选择结果</p>
 			<div>你的性别: {{gender}}</div>
 			<div>你的爱好: {{hobby}}</div>
-			
+
 		</div>
 		<script>
 			var myApp = new Vue({
