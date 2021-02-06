@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flex学习</title>
+    <style>
+        .main {
+            width: 400px;
+            height: 500px;
+            background-color: #e57d1d;
+            margin: 5px 8px 0;
+            display: flex;
+            flex-wrap: wrap;
+            /*
+             flex-direction: row
+             主轴即为行
+             分配主轴上剩余的空白空间
+            */
+            justify-content: flex-start;
+            /**
+             主轴为行,侧轴即为列
+             */
+            align-content: flex-start;
+        }
+        .main .item {
+            width: 160px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+        }
+        .main .item:nth-child(1) {
+            background-color: #ff2f5e;
+        }
+        .main .item:nth-child(2) {
+            background-color: #fbff4b;
+        }
+        .main .item:nth-child(3) {
+            background-color: #4ee1ff;
+        }
+        .main .item:nth-child(4) {
+            background-color: #cc18ff;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="item">A</div>
+    <div class="item">B</div>
+    <div class="item">C</div>
+</div>
+
+</body>
+</html>
