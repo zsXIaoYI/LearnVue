@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flex模型</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        ul{
+            width: 800px;
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            border: 10px black solid;
+            display: flex;
+            /*
+             弹性元素的排列方式
+             column:列
+             row:行(从左向右)
+             row-reverse: 行反向(从右向左  )
+            */
+            flex-direction: row-reverse;
+        }
+        li{
+            width: 100px;
+            height: 100px;
+            background-color: #31b0d5;
+            font-size: 20px;
+            text-align: center;
+            line-height: 100px;
+        }
+        li:nth-child(2){
+            background-color: palevioletred;
+        }
+        li:nth-child(3){
+            background-color: mediumvioletred;
+        }
+
+    </style>
+</head>
+<body>
+
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+</ul>
+</body>
+</html>
