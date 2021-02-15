@@ -29,14 +29,22 @@
 			</label>
 
 			<p>单选,最喜欢的游戏: {{likedGame}}</p>
+			<p>空字符串取反为true: {{!likedGame}}</p>
 			<p>多选,最喜欢的游戏: {{likedGames}}</p>
 		</div>
 
 		<script>
+			// 字符串中为数字,再跟整数做减法时,结果会变成number类型
+			console.log('12' - 1)
+			// 返回false
+			console.log(!'aa')
+			// 返回true
+			console.log(!'')
+			console.log(Math.floor(new Date().getTime() / 1000))
 			var myApp = new Vue({
 				el: '#myApp',
 				data: {
-					likedGame: null,
+					likedGame: '',
 					likedGames: []
 				}
 			});
